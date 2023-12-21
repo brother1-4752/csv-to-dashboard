@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import styled from "styled-components";
 
 type DashBoardTableProps = {
@@ -6,69 +5,42 @@ type DashBoardTableProps = {
 };
 
 const DashBoardTable = ({ csvData }: DashBoardTableProps) => {
-  const columnLength = 4;
-
   return (
-    <StyledDashBoardTable className="table" columnLength={columnLength}>
-      <table>
-        {csvData.map((csvData, index) => (
-          <Fragment key={index}>
-            <thead>
-              <tr className="table__header">
-                {csvData.map((header, index) => (
-                  <th className="table__header--data" key={index}>
-                    {header}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="table__body">
-                {csvData.slice(1).map((body, index) => (
-                  <td key={index} className="table__body--data">
-                    {body}
-                  </td>
-                ))}
-              </tr>
-            </tbody>
-          </Fragment>
-        ))}
-      </table>
-
-      {/* <thead>
+    <StyledDashBoardTable className="table">
+      <thead>
         <tr className="table__header">
-          {csvHeaderData?.map((header, index) => (
+          {csvData[0].map((headerItem, index) => (
             <th className="table__header--data" key={index}>
-              {header}
+              {headerItem}
             </th>
           ))}
         </tr>
       </thead>
       <tbody>
-        {csvBodyData?.map((body) => (
-          <tr className="table__body" key={body[0]}>
-            {body.map((data, index) => (
+        {csvData?.slice(1).map((bodyItem, index) => (
+          <tr className="table__body" key={index}>
+            {bodyItem.map((data, index) => (
               <td className="table__body--data" key={index}>
                 {data}
               </td>
             ))}
           </tr>
         ))}
-      </tbody> */}
+      </tbody>
     </StyledDashBoardTable>
   );
 };
 
 export default DashBoardTable;
 
-const StyledDashBoardTable = styled.table<{ columnLength: number }>`
+const StyledDashBoardTable = styled.table`
   width: 90%;
   margin: ${({ theme }) => theme.spacing.margin300};
 
   .table__header,
   .table__body {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(148, 1fr);
 
     .table__header--data,
     .table__body--data {
@@ -77,6 +49,9 @@ const StyledDashBoardTable = styled.table<{ columnLength: number }>`
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 200px;
+      height: 50px;
+      overflow: scroll;
     }
 
     .table__header--data {
