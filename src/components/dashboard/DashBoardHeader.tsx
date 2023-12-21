@@ -23,5 +23,4 @@ const StyledHeader = styled.header`
   gap: 4px;
   font-size: ${({ theme }) => theme.font.getSize(16)};
   font-family: "SpoqaHanSans";
-  margin-bottom: ${({ theme }) => theme.spacing.margin200};
 `;

@@ -2,28 +2,35 @@ import styled from "styled-components";
 import useInputCsv from "../hooks/useInputCsv";
 import DashBoardHeader from "../components/dashboard/DashBoardHeader";
 import DashBoardForm from "../components/dashboard/DashBoardForm";
-import DashBoardTable from "../components/dashboard/DashBoardTable";
+import { useEffect, useState } from "react";
 
 const DashBoard = () => {
-  const { csvArray, csvName, onChangeCsvFile } = useInputCsv();
-  const csvHeaderData = csvArray?.[0];
-  const csvBodyData = csvArray?.slice(1);
+  const { csvFileList, isLoading, onChangeCsvFile } = useInputCsv();
+  const [allCsvDataString, setAllCsvDataString] = useState<string>("");
+
+  // 검색되거나, 정렬되지 않은 상태의 total csv data
+  useEffect(() => {
+    if (csvFileList !== null) {
+      const createAllCsvDataList = async () => {
+        await Promise.all(
+          Array.from(csvFileList).map(async (csvFile) => {
+            const stream = csvFile.stream();
+          })
+        );
+      };
+    }
+  }, [csvFileList]);
+
+  // const testArr = testStr.split("\n").map((row) => row.split(/,(?![^{}]*})/g));
+
+  // console.log(testStr);
+  // console.log(testArr);
 
   return (
     <StyledDashBoard>
       <DashBoardHeader />
 
-      <DashBoardForm onChangeCsvFile={onChangeCsvFile} />
-
-      {csvArray && (
-        <>
-          <h1> 파일 제목 : {csvName}</h1>
-          <DashBoardTable
-            csvHeaderData={csvHeaderData}
-            csvBodyData={csvBodyData}
-          />
-        </>
-      )}
+      <DashBoardForm onChangeCsvFile={onChangeCsvFile} isLoading={isLoading} />
     </StyledDashBoard>
   );
 };

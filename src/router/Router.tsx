@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 import App from "../App";
 import DashBoard from "../pages/DashBoard";
 import { createBrowserRouter } from "react-router-dom";
-import CsvUploader from "../pages/CsvUploader";
 
 interface RouterData {
   path: string;
@@ -21,11 +20,6 @@ const routerData: RouterData[] = [
         path: "",
         label: "대시보드",
         element: <DashBoard />,
-      },
-      {
-        path: "test",
-        label: "테스트",
-        element: <CsvUploader />,
       },
     ],
   },

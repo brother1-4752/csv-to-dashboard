@@ -1,17 +1,41 @@
+import { Fragment } from "react";
 import styled from "styled-components";
 
 type DashBoardTableProps = {
-  csvHeaderData: string[] | undefined;
-  csvBodyData: string[][] | undefined;
+  csvData: string[][];
 };
 
-const DashBoardTable = ({
-  csvHeaderData,
-  csvBodyData,
-}: DashBoardTableProps) => {
+const DashBoardTable = ({ csvData }: DashBoardTableProps) => {
+  const columnLength = 4;
+
   return (
-    <StyledDashBoardTable className="table">
-      <thead>
+    <StyledDashBoardTable className="table" columnLength={columnLength}>
+      <table>
+        {csvData.map((csvData, index) => (
+          <Fragment key={index}>
+            <thead>
+              <tr className="table__header">
+                {csvData.map((header, index) => (
+                  <th className="table__header--data" key={index}>
+                    {header}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="table__body">
+                {csvData.slice(1).map((body, index) => (
+                  <td key={index} className="table__body--data">
+                    {body}
+                  </td>
+                ))}
+              </tr>
+            </tbody>
+          </Fragment>
+        ))}
+      </table>
+
+      {/* <thead>
         <tr className="table__header">
           {csvHeaderData?.map((header, index) => (
             <th className="table__header--data" key={index}>
@@ -30,16 +54,16 @@ const DashBoardTable = ({
             ))}
           </tr>
         ))}
-      </tbody>
+      </tbody> */}
     </StyledDashBoardTable>
   );
 };
 
 export default DashBoardTable;
 
-const StyledDashBoardTable = styled.table`
+const StyledDashBoardTable = styled.table<{ columnLength: number }>`
   width: 90%;
-  margin: ${({ theme }) => theme.spacing.margin100};
+  margin: ${({ theme }) => theme.spacing.margin300};
 
   .table__header,
   .table__body {

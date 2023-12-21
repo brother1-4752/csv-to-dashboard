@@ -6,39 +6,96 @@ import {
 
 type DashBoardFormProps = {
   onChangeCsvFile: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  isLoading: boolean;
 };
 
-const DashBoardForm = ({ onChangeCsvFile }: DashBoardFormProps) => {
+const DashBoardForm = ({ onChangeCsvFile, isLoading }: DashBoardFormProps) => {
   return (
-    <StyledDashBoardForm>
-      <label htmlFor="csv" className="form__label--csv">
-        CSV 업로드
-      </label>
-      <input
-        id="csv"
-        type="file"
-        accept="text/csv"
-        multiple
-        onChange={onChangeCsvFile}
-        hidden
-      />
+    <StyledDashBoardForm loading={isLoading.toString()}>
+      <div className="form__buttons">
+        <label htmlFor="csv" className="form__label--csv">
+          CSV 업로드
+        </label>
+        <input
+          id="csv"
+          type="file"
+          accept="text/csv"
+          multiple
+          onChange={onChangeCsvFile}
+          hidden
+        />
+        <button className="table__representer--btn">
+          {isLoading ? "파일 업로드 대기중" : "파일 업로드 완료"}
+        </button>
+      </div>
+      {!isLoading && (
+        <p className="helptext">
+          *csv데이터가 준비되었습니다. <br />
+          이제 유저아이디를 검색하여 관련 테이블을 검색할 수 있습니다.
+        </p>
+      )}
+      {/* <div className="form__search">
+        <input type="text" className="form__search--input" />
+        <button className="form__search--btn">검색</button>
+      </div> */}
     </StyledDashBoardForm>
   );
 };
 
 export default DashBoardForm;
 
-const StyledDashBoardForm = styled.form`
-  margin-left: ${({ theme }) => theme.spacing.margin100};
+const StyledDashBoardForm = styled.form<{ loading: string }>`
+  width: 100%;
+  padding: ${({ theme }) => theme.spacing.margin100};
+  border-bottom: 1px solid ${({ theme }) => theme.color.white200};
 
-  .form__label--csv {
-    ${inputTextFocusAnimation};
-    ${buttonHoverAnimation};
-    width: 90px;
-    height: 40px;
+  .form__buttons {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 16px;
+    /* margin-bottom: ${({ theme }) => theme.spacing.margin100}; */
+
+    .form__label--csv {
+      ${inputTextFocusAnimation};
+      ${buttonHoverAnimation};
+      width: 90px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .table__representer--btn {
+      ${buttonHoverAnimation}
+      background-color: ${(props) =>
+        props.loading === "true" ? "#adb5bd" : "#20c997"} !important;
+
+      &:hover {
+        color: ${(props) =>
+          props.loading === "true" ? "#adb5bd" : "#20c997"} !important;
+        background-color: ${({ theme }) => theme.color.white100} !important;
+        border: 1px solid
+          ${(props) => (props.loading === "true" ? "#adb5bd" : "#20c997")} !important;
+        box-shadow: 1px 1px 1px 1px
+          ${(props) => (props.loading === "true" ? "#adb5bd" : "#20c997")} !important;
+        outline: none;
+      }
+    }
+  }
+
+  .helptext {
+    color: ${({ theme }) => theme.color.gray100};
+    margin-top: ${({ theme }) => theme.spacing.margin100};
+  }
+
+  .form__search {
+    display: flex;
+    gap: 8px;
+
+    .form__search--input {
+      ${inputTextFocusAnimation}
+    }
+
+    .form__search--btn {
+      ${buttonHoverAnimation}
+    }
   }
 `;
