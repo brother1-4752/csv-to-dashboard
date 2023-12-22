@@ -34,10 +34,6 @@ const DashBoardForm = ({ onChangeCsvFile, isLoading }: DashBoardFormProps) => {
           이제 유저아이디를 검색하여 관련 테이블을 검색할 수 있습니다.
         </p>
       )}
-      {/* <div className="form__search">
-        <input type="text" className="form__search--input" />
-        <button className="form__search--btn">검색</button>
-      </div> */}
     </StyledDashBoardForm>
   );
 };
@@ -84,18 +80,5 @@ const StyledDashBoardForm = styled.form<{ loading: string }>`
   .helptext {
     color: ${({ theme }) => theme.color.gray100};
     margin-top: ${({ theme }) => theme.spacing.margin100};
-  }
-
-  .form__search {
-    display: flex;
-    gap: 8px;
-
-    .form__search--input {
-      ${inputTextFocusAnimation}
-    }
-
-    .form__search--btn {
-      ${buttonHoverAnimation}
-    }
   }
 `;

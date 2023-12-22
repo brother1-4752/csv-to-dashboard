@@ -1,30 +1,47 @@
 import { atom, selector } from "recoil";
 
-export const totalCsvTextState = atom<string | null>({
-  key: "totalCsvTextState",
+export type FilterType = "userId" | "eventName" | "all";
+
+export const totalStringState = atom<string | null>({
+  key: "totalStringState",
   default: null,
 });
 
-export const csvDataListState = atom<string[][] | null>({
-  key: "csvDataListState",
+export const dataListState = atom<string[][] | null>({
+  key: "dataListState",
   default: null,
 });
 
-export const userIdFilterState = atom({
-  key: "csvDataListFilterState",
+export const filterKeywordState = atom({
+  key: "filterKeywordState",
   default: "",
 });
 
-export const filteredcsvDataListState = selector({
-  key: "filteredTodoListState",
+export const filterTypeState = atom<FilterType>({
+  key: "filterTypeState",
+  default: "userId" as FilterType,
+});
+
+export const filteredListState = selector({
+  key: "filteredListState",
   get: ({ get }) => {
-    const filter = get(userIdFilterState);
-    const list = get(csvDataListState);
+    const filterKeyword = get(filterKeywordState);
+    const filterType = get(filterTypeState);
+    const list = get(dataListState);
+
+    // 모든 데이터 필터링 없이 보여주기
+    if (filterType === "all") return list;
+
     const userIdKey = "customer_user_id";
+    const eventNameKey = "event_name";
     const eventTimeKey = "event_time";
 
     if (list?.[0].indexOf(userIdKey) === -1) {
       alert(`${userIdKey} 컬럼이 존재하지 않습니다.}`);
+    }
+
+    if (list?.[0].indexOf(eventNameKey) === -1) {
+      alert(`${eventNameKey} 컬럼이 존재하지 않습니다.}`);
     }
 
     if (list?.[0].indexOf(eventTimeKey) === -1) {
@@ -32,33 +49,46 @@ export const filteredcsvDataListState = selector({
     }
 
     const userIdIndex = list?.[0].indexOf(userIdKey);
+    const eventNameIndex = list?.[0].indexOf(eventNameKey);
     const eventTimeIndex = list?.[0].indexOf(eventTimeKey);
 
-    if (filter.length === 0) return list;
+    if (filterKeyword.length === 0) return list;
 
-    const filteredByUserId = list?.filter((item, index) => {
+    const filtered = list?.filter((item, index) => {
       if (index === 0) return true;
-      return item[userIdIndex ?? 61] === filter;
+      return (
+        item[
+          filterType === "userId"
+            ? userIdIndex ?? 61
+            : filterType === "eventName"
+            ? eventNameIndex ?? 4
+            : -1 // -1이면 에러인데, 어떻게 나타냄?
+        ] === filterKeyword
+      );
     });
 
-    const filteredDataListByEventTime = filteredByUserId?.sort((a, b) => {
+    const filteredDataListByEventTime = filtered?.sort((a, b) => {
       const timeA = new Date(a[eventTimeIndex ?? 3]).getTime();
       const timeB = new Date(b[eventTimeIndex ?? 3]).getTime();
       return timeB - timeA;
     });
 
-    function moveElementToStart(arr: string[][], indexToMove: number) {
-      arr.forEach((subArray) => {
-        const elementToMove = subArray[indexToMove];
-        const index = subArray.indexOf(elementToMove);
-        if (index !== -1) {
-          subArray.splice(index, 1); // 해당 값 삭제
-          subArray.unshift(elementToMove); // 해당 값 맨 앞으로 추가
-        }
-      });
-    }
-    moveElementToStart(filteredDataListByEventTime as string[][], 3);
+    const clonedDataList = filteredDataListByEventTime?.map((subArray) => [
+      ...subArray,
+    ]);
 
-    return filteredDataListByEventTime;
+    clonedDataList?.forEach((subArray) => {
+      const elementToMove = subArray[3];
+      const index = subArray.indexOf(elementToMove);
+
+      subArray.splice(61, 1);
+
+      if (index !== -1) {
+        subArray.splice(index, 1);
+        subArray.unshift(elementToMove);
+      }
+    });
+
+    return clonedDataList;
   },
 });
