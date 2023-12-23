@@ -12,7 +12,7 @@ import {
   filterTypeState,
   FilterType,
 } from "../atoms/atoms";
-import DashBoardTable from "../components/dashboard/DashBoardTable";
+// import DashBoardTable from "../components/dashboard/DashBoardTable";
 import {
   buttonHoverAnimation,
   inputTextFocusAnimation,
@@ -116,18 +116,18 @@ const DashBoard = () => {
         </div>
       )}
 
-      {filteredList && (
+      {/* {filteredList && (
         <div>
           <DashBoardTable csvData={filteredList} />
         </div>
-      )}
+      )} */}
 
-      {/* {filteredList && (
+      {filteredList && (
         <DashBoardCardList
           filterKeyword={filterKeyword}
           filteredList={filteredList}
         />
-      )} */}
+      )}
     </StyledDashBoard>
   );
 };

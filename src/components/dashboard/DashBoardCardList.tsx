@@ -1,4 +1,4 @@
-import { useState } from "react";
+import DashBoardCardItem from "./DashBoardCardItem";
 
 interface DashBoardCardListProps {
   filterKeyword: string;
@@ -9,43 +9,22 @@ const DashBoardCardList = ({
   filterKeyword,
   filteredList,
 }: DashBoardCardListProps) => {
-  const [openDetail, setOpenDetail] = useState<boolean>(false);
-
-  console.log(filteredList);
-  // 0, 4, 5
-  // 61, 62 (android)
-  // 64, 65 (idfa,idfv)
-  // 119 (device_model) => iPhone 포함 : 64 , samsung 포함 : 61
-  
-
+  // 0: event_time, 1 : event_name, 2 : event_value, 3 : android_id, 4 : idfa, 5 : device_model
+  const refinedList = filteredList?.map((subArray) => {
+    const targetIndexList = [0, 4, 5, 61, 64, 118];
+    const refinedSubArray = subArray.filter((_, index) =>
+      targetIndexList.includes(index)
+    );
+    return refinedSubArray;
+  });
 
   return (
     <div>
       <header>
         <h1>유저아이디 : {filterKeyword}</h1>
-
-        {filteredList.slice(1).map((row, index) => (
-          <div
-            key={index}
-            style={{
-              width: "50%",
-              padding: "36px",
-              border: "1px solid black",
-              gap: "8px",
-              display: "flex",
-            }}
-          >
-            <h1 style={{ fontSize: "18px" }}>{row[0]}</h1>
-            <p>
-              - 이벤트명 : {row[4]}
-              <button onClick={() => setOpenDetail((prev) => !prev)}>
-                자세히 보기
-              </button>
-            </p>
-            {openDetail && <p>{row[5]}</p>}
-          </div>
-        ))}
       </header>
+
+      <DashBoardCardItem refinedList={refinedList} />
     </div>
   );
 };
