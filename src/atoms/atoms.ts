@@ -1,6 +1,6 @@
 import { atom, selector } from "recoil";
 
-export type FilterType = "userId" | "eventName" | "all";
+export type FilterType = "userId" | "all";
 
 export const totalStringState = atom<string | null>({
   key: "totalStringState",
@@ -33,6 +33,7 @@ export const filteredListState = selector({
     if (filterType === "all") return list;
 
     const userIdKeyA = "customer_user_id";
+    // const userIdKeyB = "user_id";
     const eventNameKey = "event_name";
     const eventTimeKey = "event_time";
 

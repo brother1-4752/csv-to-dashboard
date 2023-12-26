@@ -18,6 +18,7 @@ const StyledHeader = styled.header`
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
   border-bottom: 1px solid ${({ theme }) => theme.color.white200};
   padding: ${({ theme }) => theme.spacing.margin100};
   gap: 4px;
