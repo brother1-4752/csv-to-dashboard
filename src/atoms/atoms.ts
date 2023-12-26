@@ -32,12 +32,12 @@ export const filteredListState = selector({
     // 모든 데이터 필터링 없이 보여주기
     if (filterType === "all") return list;
 
-    const userIdKey = "customer_user_id";
+    const userIdKeyA = "customer_user_id";
     const eventNameKey = "event_name";
     const eventTimeKey = "event_time";
 
-    if (list?.[0].indexOf(userIdKey) === -1) {
-      alert(`${userIdKey} 컬럼이 존재하지 않습니다.}`);
+    if (list?.[0].indexOf(userIdKeyA) === -1) {
+      alert(`${userIdKeyA} 컬럼이 존재하지 않습니다.}`);
     }
 
     if (list?.[0].indexOf(eventNameKey) === -1) {
@@ -48,7 +48,7 @@ export const filteredListState = selector({
       alert(`${eventTimeKey} 컬럼이 존재하지 않습니다.}`);
     }
 
-    const userIdIndex = list?.[0].indexOf(userIdKey);
+    const userIdIndex = list?.[0].indexOf(userIdKeyA);
     const eventNameIndex = list?.[0].indexOf(eventNameKey);
     const eventTimeIndex = list?.[0].indexOf(eventTimeKey);
 
