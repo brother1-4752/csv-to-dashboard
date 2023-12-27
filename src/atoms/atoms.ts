@@ -1,12 +1,5 @@
 import { atom, selector } from "recoil";
 
-export type FilterType = "userId" | "all";
-
-export const totalStringState = atom<string | null>({
-  key: "totalStringState",
-  default: null,
-});
-
 export const dataListState = atom<string[][] | null>({
   key: "dataListState",
   default: null,
@@ -17,55 +10,33 @@ export const filterKeywordState = atom({
   default: "",
 });
 
-export const filterTypeState = atom<FilterType>({
-  key: "filterTypeState",
-  default: "userId" as FilterType,
-});
-
 export const filteredListState = selector({
   key: "filteredListState",
   get: ({ get }) => {
     const filterKeyword = get(filterKeywordState);
-    const filterType = get(filterTypeState);
     const list = get(dataListState);
 
-    // 모든 데이터 필터링 없이 보여주기
-    if (filterType === "all") return list;
-
     const userIdKeyA = "customer_user_id";
-    // const userIdKeyB = "user_id";
-    const eventNameKey = "event_name";
+    const userIdKeyB = "user_id";
     const eventTimeKey = "event_time";
 
-    if (list?.[0].indexOf(userIdKeyA) === -1) {
-      alert(`${userIdKeyA} 컬럼이 존재하지 않습니다.}`);
-    }
+    // if (list?.[0].indexOf(userIdKeyA) === -1) {
+    //   alert(`${userIdKeyA} 컬럼이 존재하지 않습니다.}`);
+    // }
 
-    if (list?.[0].indexOf(eventNameKey) === -1) {
-      alert(`${eventNameKey} 컬럼이 존재하지 않습니다.}`);
-    }
+    // if (list?.[0].indexOf(eventTimeKey) === -1) {
+    //   alert(`${eventTimeKey} 컬럼이 존재하지 않습니다.}`);
+    // }
 
-    if (list?.[0].indexOf(eventTimeKey) === -1) {
-      alert(`${eventTimeKey} 컬럼이 존재하지 않습니다.}`);
-    }
-
-    const userIdIndex = list?.[0].indexOf(userIdKeyA);
-    const eventNameIndex = list?.[0].indexOf(eventNameKey);
+    const userIdIndex =
+      list?.[0].indexOf(userIdKeyA) ?? list?.[0].indexOf(userIdKeyB);
     const eventTimeIndex = list?.[0].indexOf(eventTimeKey);
 
     if (filterKeyword.length === 0) return list;
 
     const filtered = list?.filter((item, index) => {
-      if (index === 0) return true;
-      return (
-        item[
-          filterType === "userId"
-            ? userIdIndex ?? 61
-            : filterType === "eventName"
-            ? eventNameIndex ?? 4
-            : -1 // -1이면 에러인데, 어떻게 나타냄?
-        ] === filterKeyword
-      );
+      if (index === 0) return true; // 헤더 컬럼만 따로 처리
+      return item[userIdIndex ?? 61] === filterKeyword;
     });
 
     const filteredDataListByEventTime = filtered?.sort((a, b) => {

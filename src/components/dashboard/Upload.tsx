@@ -119,7 +119,6 @@ const Upload = () => {
                     alignItems: "center",
                     justifyContent: "center",
                     height: "100%",
-                    //   border: "1px solid #DB4D6E",
                     boxSizing: "border-box",
                     borderRadius: "8px",
                   }}
@@ -173,8 +172,8 @@ const StyledUpload = styled.div`
 
   .form {
     border: 1px dashed ${({ theme }) => theme.color.primary100};
-    border-radius: 8px;
-    width: 90%;
+    border-radius: 8px 0 0 8px;
+    width: 100%;
     height: 300px;
     margin: 32px;
     box-sizing: border-box;
@@ -204,7 +203,7 @@ const StyledUpload = styled.div`
     .filelist {
       margin: 32px;
       overflow: scroll;
-      border-radius: 8px;
+      border-radius: 0 8px 8px 0;
 
       .filelist__item--nodata {
         display: flex;
@@ -214,7 +213,7 @@ const StyledUpload = styled.div`
         justify-content: center;
         height: 100%;
         border: 1px solid #db4d6e;
-        border-radius: 8px;
+
         box-sizing: border-box;
         opacity: 0.35;
         gap: 8px;

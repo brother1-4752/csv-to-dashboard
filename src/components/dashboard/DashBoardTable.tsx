@@ -6,10 +6,10 @@ type DashBoardTableProps = {
 
 const DashBoardTable = ({ csvData }: DashBoardTableProps) => {
   return (
-    <StyledDashBoardTable className="table">
+    <StyledDashBoardTable>
       <thead>
         <tr className="table__header">
-          {csvData[0].map((headerItem, index) => (
+          {csvData[0]?.map((headerItem, index) => (
             <th className="table__header--data" key={index}>
               {headerItem}
             </th>
@@ -34,14 +34,14 @@ const DashBoardTable = ({ csvData }: DashBoardTableProps) => {
 export default DashBoardTable;
 
 const StyledDashBoardTable = styled.table`
-  width: 90%;
-  margin: ${({ theme }) => theme.spacing.margin300};
+  /* display: flex; */
+  width: 95%;
+  table-layout: fixed;
+  border-collapse: collapse;
 
   .table__header,
   .table__body {
-    display: grid;
-    grid-template-columns: repeat(148, 1fr);
-
+    display: flex;
     .table__header--data,
     .table__body--data {
       border: 1px solid ${({ theme }) => theme.color.gray300};

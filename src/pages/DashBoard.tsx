@@ -107,7 +107,7 @@
 //           <input
 //             id="search"
 //             type="text"
-//             className="form__search--input"
+//             className="search__input--text"
 //             onChange={onChangeSearchKeyword}
 //           />
 //           <button onClick={search} className="form__search--btn">
@@ -156,11 +156,7 @@ const DashBoard = () => {
       <DashBoardHeader />
       <Upload />
       <Search />
-      {filteredList && (
-        <div>
-          <DashBoardTable csvData={filteredList} />
-        </div>
-      )}
+      {filteredList && <DashBoardTable csvData={filteredList} />}
     </StyledDashBoard>
   );
 };
@@ -172,28 +168,57 @@ const StyledDashBoard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-x: auto;
 
   .form__search {
+    width: 95%;
     margin: ${({ theme }) => theme.spacing.margin100};
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: ${({ theme }) => theme.color.tableHeaderBg};
+    padding: ${({ theme }) => theme.spacing.margin200};
+    border: 1px solid ${({ theme }) => theme.color.gray300};
+    border-radius: 4px;
+    box-sizing: border-box;
 
-    .search__filter--select {
-      margin-right: 8px;
-      border: 1px solid ${({ theme }) => theme.color.gray300};
-      border-radius: 4px;
-      color: ${({ theme }) => theme.color.gray100};
-      cursor: pointer;
+    .search__left {
+      display: flex;
+      align-items: center;
 
-      & > option {
+      .search__input--startDate,
+      .search__input--endDate {
+        ${inputTextFocusAnimation};
+        padding: 4px 8px;
+      }
+
+      .date__apply--btn {
+        ${buttonHoverAnimation};
       }
     }
 
-    .form__search--input {
-      ${inputTextFocusAnimation};
-    }
+    .search__right {
+      display: flex;
+      align-items: center;
+      gap: 4px;
 
-    .form__search--btn {
-      ${buttonHoverAnimation}
+      .search__filter--select {
+        margin-right: 8px;
+        border: 1px solid ${({ theme }) => theme.color.gray300};
+        color: ${({ theme }) => theme.color.gray100};
+        cursor: pointer;
+        ${inputTextFocusAnimation}
+        padding: 4px 8px;
+        height: 25px !important;
+      }
+
+      .search__input--text {
+        ${inputTextFocusAnimation};
+      }
+
+      .form__search--btn {
+        ${buttonHoverAnimation}
+      }
     }
   }
 `;

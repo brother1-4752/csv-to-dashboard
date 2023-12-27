@@ -1,15 +1,10 @@
 import { FormEvent, useState } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import {
-  FilterType,
-  filterKeywordState,
-  filterTypeState,
-} from "../../atoms/atoms";
+import { useSetRecoilState } from "recoil";
+import { filterKeywordState } from "../../atoms/atoms";
 
 const Search = () => {
   const [searchKeyword, setSearchKeyword] = useState<string>("");
-  const [filterKeyword, setFilterKeyword] = useRecoilState(filterKeywordState);
-  const setFilterType = useSetRecoilState(filterTypeState);
+  const setFilterKeyword = useSetRecoilState(filterKeywordState);
 
   const onChangeSearchKeyword = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -23,31 +18,29 @@ const Search = () => {
     setFilterKeyword(searchKeyword);
   };
 
-  const onChangeFilterType = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    event.preventDefault();
-
-    const filterType = event.target.value as FilterType;
-    setFilterType(filterType);
-  };
   return (
-    <div className="form__search">
-      <select
-        name="search__filter--type"
-        className="search__filter--select"
-        onChange={onChangeFilterType}
-      >
-        <option value="userId">유저아이디</option>
-      </select>
-      <input
-        id="search"
-        type="text"
-        className="form__search--input"
-        onChange={onChangeSearchKeyword}
-      />
-      <button onClick={search} className="form__search--btn">
-        검색
-      </button>
-    </div>
+    <header className="form__search">
+      <div className="search__left">
+        <input className="search__input--startDate" type="date" />
+        <span style={{ marginRight: "4px" }}> ~ </span>
+        <input className="search__input--endDate" type="date" />
+        <button className="date__apply--btn">적용</button>
+      </div>
+      <div className="search__right">
+        <select name="search__filter--type" className="search__filter--select">
+          <option value="userId">유저아이디</option>
+        </select>
+        <input
+          id="search"
+          type="text"
+          className="search__input--text"
+          onChange={onChangeSearchKeyword}
+        />
+        <button onClick={search} className="form__search--btn">
+          검색
+        </button>
+      </div>
+    </header>
   );
 };
 
