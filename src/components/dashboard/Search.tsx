@@ -1,10 +1,16 @@
 import { FormEvent, useState } from "react";
-import { useSetRecoilState } from "recoil";
-import { filterKeywordState } from "../../atoms/atoms";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  filterKeywordState,
+  isSearchdState,
+  totalStringState,
+} from "../../atoms/atoms";
 
 const Search = () => {
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const setFilterKeyword = useSetRecoilState(filterKeywordState);
+  const totalString = useRecoilValue(totalStringState);
+  const setIsSearched = useSetRecoilState(isSearchdState);
 
   const onChangeSearchKeyword = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -15,7 +21,10 @@ const Search = () => {
 
   const search = (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    setFilterKeyword(searchKeyword);
+    if (totalString) {
+      setIsSearched(true);
+      setFilterKeyword(searchKeyword);
+    }
   };
 
   return (

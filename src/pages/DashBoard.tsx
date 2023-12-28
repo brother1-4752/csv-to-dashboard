@@ -32,39 +32,39 @@
 //   // TODO: 추후 검색 기능으로 변경
 
 //   // 검색되거나, 정렬되지 않은 상태의 total csv data
-//   useEffect(() => {
-//     if (csvFileList !== null) {
-//       const createtotalString = async () => {
-//         try {
-//           await Promise.all(
-//             Array.from(csvFileList).map(async (csvFile) => {
-//               const stream = csvFile.stream();
-//               const csvText = await new Response(stream).text();
-//               setTotalString((prev) => {
-//                 if (prev === null) return csvText;
+// useEffect(() => {
+//   if (csvFileList !== null) {
+//     const createtotalString = async () => {
+//       try {
+//         await Promise.all(
+//           Array.from(csvFileList).map(async (csvFile) => {
+//             const stream = csvFile.stream();
+//             const csvText = await new Response(stream).text();
+//             setTotalString((prev) => {
+//               if (prev === null) return csvText;
 
-//                 return prev + "\n" + csvText;
-//               });
-//             })
-//           );
-//         } catch (err) {
-//           console.log(err);
-//         }
-//       };
-//       createtotalString();
-//       console.log("csv 업로드시 :", "totalString 업데이트됨.\n");
-//       return;
-//     }
-//     console.log("처음 로딩시 :", "아무것도 fetching 안됨.\n");
-//   }, [csvFileList]);
+//               return prev + "\n" + csvText;
+//             });
+//           })
+//         );
+//       } catch (err) {
+//         console.log(err);
+//       }
+//     };
+//     createtotalString();
+//     console.log("csv 업로드시 :", "totalString 업데이트됨.\n");
+//     return;
+//   }
+//   console.log("처음 로딩시 :", "아무것도 fetching 안됨.\n");
+// }, [csvFileList]);
 
-//   const convertCsvToDataList = (totalString: string) => {
-//     const dataList = totalString
-//       .split("\n")
-//       .map((row) => row.split(/,(?![^{}]*})/));
-//     setDataList(dataList);
-//     console.log("dataList 업데이트됨.\n");
-//   };
+// const convertCsvToDataList = (totalString: string) => {
+//   const dataList = totalString
+//     .split("\n")
+//     .map((row) => row.split(/,(?![^{}]*})/));
+//   setDataList(dataList);
+//   console.log("dataList 업데이트됨.\n");
+// };
 
 //   const onChangeSearchKeyword = (
 //     event: React.ChangeEvent<HTMLInputElement>
@@ -76,10 +76,10 @@
 //   const search = (event: FormEvent<HTMLButtonElement>) => {
 //     event.preventDefault();
 
-//     if (totalString) {
-//       convertCsvToDataList(totalString);
-//       setFilterKeyword(searchKeyword);
-//     }
+// if (totalString) {
+//   convertCsvToDataList(totalString);
+//   setFilterKeyword(searchKeyword);
+// }
 //   };
 
 //   const onChangeFilterType = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -143,20 +143,21 @@ import {
 } from "../styles/GlobalStyle";
 import DashBoardHeader from "../components/dashboard/DashBoardHeader";
 import Upload from "../components/dashboard/Upload";
-import { useRecoilValue } from "recoil";
-import { filteredListState } from "../atoms/atoms";
-import DashBoardTable from "../components/dashboard/DashBoardTable";
-import Search from "../components/dashboard/Search";
+// import { useRecoilValue } from "recoil";
+// import { filteredListState } from "../atoms/atoms";
+// import DashBoardTable from "../components/dashboard/DashBoardTable";
 
 const DashBoard = () => {
-  const filteredList = useRecoilValue(filteredListState);
+  // const filteredList = useRecoilValue(filteredListState);
+
+  // console.log(filteredList);
 
   return (
     <StyledDashBoard>
       <DashBoardHeader />
       <Upload />
-      <Search />
-      {filteredList && <DashBoardTable csvData={filteredList} />}
+      {/* <Search />
+      {filteredList && isSearched && <DashBoardTable csvData={filteredList} />} */}
     </StyledDashBoard>
   );
 };

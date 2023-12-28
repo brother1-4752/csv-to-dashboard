@@ -34,8 +34,9 @@ const DashBoardTable = ({ csvData }: DashBoardTableProps) => {
 export default DashBoardTable;
 
 const StyledDashBoardTable = styled.table`
-  /* display: flex; */
+  display: grid;
   width: 95%;
+  margin: 30px 15px 30px 0;
   table-layout: fixed;
   border-collapse: collapse;
 

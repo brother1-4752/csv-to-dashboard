@@ -1,8 +1,18 @@
 import { atom, selector } from "recoil";
 
+export const totalStringState = atom<string>({
+  key: "totalStringState",
+  default: "",
+});
+
 export const dataListState = atom<string[][] | null>({
   key: "dataListState",
   default: null,
+});
+
+export const isSearchdState = atom<boolean>({
+  key: "isSearchdState",
+  default: false,
 });
 
 export const filterKeywordState = atom({
@@ -29,13 +39,13 @@ export const filteredListState = selector({
     // }
 
     const userIdIndex =
-      list?.[0].indexOf(userIdKeyA) ?? list?.[0].indexOf(userIdKeyB);
-    const eventTimeIndex = list?.[0].indexOf(eventTimeKey);
+      list?.[1].indexOf(userIdKeyA) ?? list?.[1].indexOf(userIdKeyB);
+    const eventTimeIndex = list?.[1].indexOf(eventTimeKey);
 
     if (filterKeyword.length === 0) return list;
 
     const filtered = list?.filter((item, index) => {
-      if (index === 0) return true; // 헤더 컬럼만 따로 처리
+      if (index === 1) return true; // 헤더 컬럼만 따로 처리
       return item[userIdIndex ?? 61] === filterKeyword;
     });
 
