@@ -10,17 +10,26 @@ const Upload = () => {
   const [fileList, setFileList] = useState<FileList | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isDragging, setIsDragging] = useState<boolean>(false);
-
   const [totalString, setTotalString] = useRecoilState(totalStringState);
-
   const setDataList = useSetRecoilState(dataListState);
 
-  //여기서부터 작업시작
   useEffect(() => {
+    //파일 업로드 되었으면
     if (fileList !== null) {
-      //파일 업로드 되었으면
+      Array.from(fileList).map((file) => {
+        createDataListByFile(file);
+      });
     }
   }, [fileList]);
+
+  const createDataListByFile = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const text = event.target?.result as string;
+      console.log(text);
+    };
+    reader.readAsText(file);
+  };
 
   // useEffect(() => {
   //   if (fileList !== null) {
