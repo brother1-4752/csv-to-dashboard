@@ -1,15 +1,13 @@
 import axios from "axios";
 import useFileList from "../hooks/useFileList";
 import { useState } from "react";
-import { filteredResponseType } from "../types/filteredResponseType";
 import { HeaderColumns } from "../types/headerColumns";
 import styled from "styled-components";
 
 const Test = () => {
   const { selectedFiles, handleFileChange } = useFileList();
-  const [filteredList, setFilteredList] = useState<
-    filteredResponseType[] | null
-  >(null);
+  //eslint-disable-next-line
+  const [mergedList, setMergedList] = useState<any[] | null>(null);
 
   const handleUpload = async () => {
     if (!selectedFiles) return alert("파일이 없습니다.");
@@ -53,7 +51,7 @@ const Test = () => {
   // apps : 8942309, 119350, 413018, 304639
   // ampl : 380293, 2507079, 4248795, 2997548, 962656,
   const handleSearch = async () => {
-    const searchedKeyword = "304639";
+    const searchedKeyword = "8942309";
     try {
       const response = await axios.post(
         "http://localhost:3000/search",
@@ -67,7 +65,7 @@ const Test = () => {
         }
       );
       if (response.status === 200) {
-        setFilteredList(response.data);
+        setMergedList(response.data);
         console.log("search successful:", response.data);
       }
     } catch (error) {
@@ -83,7 +81,7 @@ const Test = () => {
         <button onClick={handleProcessing}>Processing</button>
         <button onClick={handleSearch}>Search</button>
       </div>
-      {filteredList && (
+      {mergedList && (
         <div>
           <StyledDashBoardTable className="table">
             <thead>
@@ -97,7 +95,11 @@ const Test = () => {
             </thead>
             <tbody>
               <tr className="table__body">
-                <td className="table__body--data">{filteredList[0]['idfa']}</td>
+                {/* {mergedList.map((data, index) => (
+                  <td className="table__body--data" key={index}>
+                    {data}
+                  </td>
+                ))} */}
               </tr>
             </tbody>
           </StyledDashBoardTable>
