@@ -8,6 +8,10 @@ const Test = () => {
   const { selectedFiles, handleFileChange } = useFileList();
   //eslint-disable-next-line
   const [mergedList, setMergedList] = useState<any[]>([]);
+  const bodyRowValues = mergedList.map((item) => Object.values(item));
+  const HeaderColumnsLength = HeaderColumns.length;
+
+  console.log("bodyRowValues", bodyRowValues);
 
   const handleUpload = async () => {
     if (!selectedFiles) return alert("파일이 없습니다.");
@@ -42,7 +46,7 @@ const Test = () => {
         },
       });
 
-      console.log("processing successful:", response.data);
+      console.log("processing successful:", response);
     } catch (error) {
       console.error("Error processing files:", error);
     }
@@ -81,7 +85,7 @@ const Test = () => {
         <button onClick={handleProcessing}>Processing</button>
         <button onClick={handleSearch}>Search</button>
       </div>
-      {mergedList && (
+      {mergedList.length > 0 && (
         <div>
           <StyledDashBoardTable className="table">
             <thead>
@@ -95,16 +99,46 @@ const Test = () => {
             </thead>
             <tbody>
               <tr className="table__body">
-                {mergedList.length > 0 &&
-                  mergedList.map((data, index) => (
-                    <Fragment key={index}>
-                      {Object.values(data).map((value, index) => (
-                        <td className="table__body--data" key={index}>
-                          {value as string}
-                        </td>
-                      ))}
-                    </Fragment>
-                  ))}
+                {bodyRowValues.map((subArray, index) => {
+                  const subArrayLength = subArray.length;
+                  const difference = HeaderColumnsLength - subArrayLength;
+
+                  if (subArray[0] === "appsFlyer") {
+                    return (
+                      <Fragment key={index}>
+                        {subArray.map((data, index) => (
+                          <td key={index} className="table__body--data">
+                            {data as string}
+                          </td>
+                        ))}
+                      </Fragment>
+                    );
+                  }
+
+                  if (subArray[0] === "amplitude") {
+                    return (
+                      <Fragment key={index}>
+                        {subArray.map((data, index) => (
+                          <td key={index} className="table__body--data">
+                            {data as string}
+                          </td>
+                        ))}
+                      </Fragment>
+                    );
+                  }
+
+                  // {
+                  //   Array(difference)
+                  //     .fill(null)
+                  //     .map((_, index) => (
+                  //       <tr className="table__body" key={index}>
+                  //         <td className="table__body--data">{null}</td>
+                  //       </tr>
+                  //     ));
+                  // }
+
+                  return <div key={index}></div>;
+                })}
               </tr>
             </tbody>
           </StyledDashBoardTable>
