@@ -1,13 +1,13 @@
 import axios from "axios";
 import useFileList from "../hooks/useFileList";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { HeaderColumns } from "../types/headerColumns";
 import styled from "styled-components";
 
 const Test = () => {
   const { selectedFiles, handleFileChange } = useFileList();
   //eslint-disable-next-line
-  const [mergedList, setMergedList] = useState<any[] | null>(null);
+  const [mergedList, setMergedList] = useState<any[]>([]);
 
   const handleUpload = async () => {
     if (!selectedFiles) return alert("파일이 없습니다.");
@@ -65,8 +65,8 @@ const Test = () => {
         }
       );
       if (response.status === 200) {
-        setMergedList(response.data);
-        console.log("search successful:", response.data);
+        setMergedList(response.data.list);
+        console.log("search successful:", response.data.list);
       }
     } catch (error) {
       console.error("Error searching files:", error);
@@ -95,11 +95,16 @@ const Test = () => {
             </thead>
             <tbody>
               <tr className="table__body">
-                {/* {mergedList.map((data, index) => (
-                  <td className="table__body--data" key={index}>
-                    {data}
-                  </td>
-                ))} */}
+                {mergedList.length > 0 &&
+                  mergedList.map((data, index) => (
+                    <Fragment key={index}>
+                      {Object.values(data).map((value, index) => (
+                        <td className="table__body--data" key={index}>
+                          {value as string}
+                        </td>
+                      ))}
+                    </Fragment>
+                  ))}
               </tr>
             </tbody>
           </StyledDashBoardTable>
