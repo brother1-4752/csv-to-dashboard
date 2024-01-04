@@ -141,7 +141,7 @@ import {
   buttonHoverAnimation,
   inputTextFocusAnimation,
 } from "../styles/GlobalStyle";
-import DashBoardHeader from "../components/dashboard/DashBoardHeader";
+
 import Upload from "../components/dashboard/Upload";
 import { useRecoilValue } from "recoil";
 import { filteredListState } from "../atoms/atoms";
@@ -153,7 +153,7 @@ const DashBoard = () => {
 
   return (
     <StyledDashBoard>
-      <DashBoardHeader />
+      {/* <DashBoardHeader /> */}
       <Upload />
       <Search />
       {filteredList && (

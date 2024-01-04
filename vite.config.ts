@@ -5,13 +5,14 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   server: {
-    proxy: {
-      "/upload": {
-        target: "http://localhost:3000",
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/upload/, ""),
-      },
-    },
-    cors: true,
+    // proxy: {
+    //   "/upload": {
+    //     target: "http://localhost:3000",
+    //     changeOrigin: true,
+    //     rewrite: (path) => path.replace(/^\/upload/, ""),
+    //   },
+    // },
+    // cors: true,
+    port: 80,
   },
 });
