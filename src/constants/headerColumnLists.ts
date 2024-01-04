@@ -1,4 +1,4 @@
-const appsFlyerColumns = [
+export const appsFlyerColumnList = [
   "attributed_touch_type",
   "attributed_touch_time",
   "install_time",
@@ -149,7 +149,7 @@ const appsFlyerColumns = [
   "day",
 ];
 
-const AmplitudeColumns = [
+export const amplitudeColumnList = [
   "app",
   "device_id",
   "user_id",
@@ -417,4 +417,4 @@ const AmplitudeColumns = [
   "date",
 ];
 
-export const HeaderColumns = appsFlyerColumns.concat(AmplitudeColumns);
+export const headerColumnList = appsFlyerColumnList.concat(amplitudeColumnList);

@@ -75,7 +75,7 @@ const Upload = () => {
     <>
       <StyledUpload>
         <form
-          className="form"
+          className="form__container"
           style={{
             opacity: isDragging ? 0.8 : 1,
           }}
@@ -171,7 +171,7 @@ const StyledUpload = styled.div`
   position: relative;
   grid-template-columns: 1fr 1fr;
 
-  .form {
+  .form__container {
     border: 1px dashed ${({ theme }) => theme.color.primary100};
     border-radius: 8px;
     width: 90%;
