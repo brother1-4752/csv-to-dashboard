@@ -14,5 +14,4 @@ export default App;
 const Layout = styled.div`
   width: 100%;
   display: flex;
-  /* padding: ${({ theme }) => theme.spacing.margin200}; */
 `;

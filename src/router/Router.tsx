@@ -1,8 +1,7 @@
 import { ReactNode } from "react";
 import App from "../App";
-import DashBoard from "../pages/DashBoard";
 import { createBrowserRouter } from "react-router-dom";
-import Test from "../pages/Test";
+import DashBoard from "../pages/DashBoard";
 
 interface RouterData {
   path: string;
@@ -21,11 +20,6 @@ const routerData: RouterData[] = [
         path: "",
         label: "대시보드",
         element: <DashBoard />,
-      },
-      {
-        path: "test",
-        label: "테스트",
-        element: <Test />,
       },
     ],
   },

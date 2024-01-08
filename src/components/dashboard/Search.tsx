@@ -10,7 +10,7 @@ const Search = () => {
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [filterKeyword, setFilterKeyword] = useRecoilState(filterKeywordState);
   const setFilterType = useSetRecoilState(filterTypeState);
-
+  console.log(filterKeyword);
   const onChangeSearchKeyword = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {

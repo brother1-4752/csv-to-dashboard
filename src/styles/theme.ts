@@ -9,9 +9,9 @@ const color = {
   white300: "rgb(65 66 71)",
   white400: "#FAFAFA",
 
-  black100: "#35363A", // 박스, 기본,
-  black200: "#27272B", // 박스, 선택,
-  black300: "#343A40", //텍스트, 기본,
+  black100: "#35363A",
+  black200: "#27272B",
+  black300: "#343A40",
 
   gray100: "#929292",
   gray200: "rgb(65 66 71)",
