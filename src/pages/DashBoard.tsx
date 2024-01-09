@@ -43,6 +43,8 @@ const DashBoard = () => {
     }
   };
 
+  console.log(selectedFiles);
+
   return (
     <StyledDashBoard>
       <DashBoardHeader
