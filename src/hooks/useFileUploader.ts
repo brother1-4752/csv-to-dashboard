@@ -7,6 +7,11 @@ const useFileUploader = () => {
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return alert("파일이 없습니다.");
+
+    if (event.target.files?.length === 0) {
+      return;
+    }
+
     setSelectedFiles(event.target.files);
   };
 
@@ -18,7 +23,10 @@ const useFileUploader = () => {
     if (!files) return;
     setSelectedFiles(files);
   };
-  const handleDragOver = () => setIsDragging(true);
+  const handleDragOver = (event: DragEvent<HTMLLabelElement>) => {
+    event.preventDefault();
+    setIsDragging(true);
+  };
   const handleDragLeave = () => setIsDragging(false);
 
   //API 서버로 파일 업로드

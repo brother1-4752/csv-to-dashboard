@@ -1,15 +1,16 @@
+import { ClipLoader } from "react-spinners";
 import styled from "styled-components";
+import { useState } from "react";
 import axios from "axios";
 
-import useFileUploader from "../hooks/useFileUploader";
-import { headerColumnList } from "../constants/headerColumnLists";
-import useSearch from "../hooks/useSearch";
-import TableRowList from "../components/dashboard/TableRowList";
-import DashBoardHeader from "../components/dashboard/DashBoardHeader";
-import { DataIcon, FileIcon, SendingIcon } from "../components/common/Icons";
-import { useState } from "react";
-import { ClipLoader } from "react-spinners";
 import { buttonHoverAnimation } from "../styles/GlobalStyle";
+import useFileUploader from "../hooks/useFileUploader";
+import useSearch from "../hooks/useSearch";
+
+import { DataIcon, FileIcon, SendingIcon } from "../components/common/Icons";
+import DashBoardHeader from "../components/dashboard/DashBoardHeader";
+import { headerColumnList } from "../constants/headerColumnLists";
+import TableRowList from "../components/dashboard/TableRowList";
 
 const DashBoard = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -42,8 +43,6 @@ const DashBoard = () => {
       console.error("Error processing files:", error);
     }
   };
-
-  console.log(selectedFiles);
 
   return (
     <StyledDashBoard>
