@@ -3,6 +3,7 @@ import {
   buttonHoverAnimation,
   inputTextFocusAnimation,
 } from "../../styles/GlobalStyle";
+import { KeyboardEvent } from "react";
 
 type DashBoardHeaderProps = {
   handleKeywordChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -15,7 +16,10 @@ const DashBoardHeader = ({
   handleSearch,
   setFilterType,
 }: DashBoardHeaderProps) => {
-  
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") handleSearch();
+  };
+
   const onChangeFilterType = (event: React.ChangeEvent<HTMLSelectElement>) => {
     event.preventDefault();
 
@@ -37,6 +41,7 @@ const DashBoardHeader = ({
           type="text"
           className="form__search--input"
           onChange={handleKeywordChange}
+          onKeyDown={handleKeyDown}
         />
         <button onClick={handleSearch} className="form__search--btn">
           검색
